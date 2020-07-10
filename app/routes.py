@@ -1,5 +1,5 @@
 from app import app
-from app.elastic import Card
+from app.models import Card
 from flask import render_template, jsonify
 # import requests
 from random import *
@@ -12,10 +12,10 @@ def random_number():
     }
     return jsonify(response)
 
-@app.route('/api/cards/<string:query>', methods=['GET'])
-def cards(query):
+@app.route('/api/cards/<string:expression>', methods=['GET'])
+def cards(expression):
     # response = { 'cards': [{'title':'Titre 1', 'text':'Texte 1'},{'title':'Titre 2', 'text':'Texte 2'}] }
-    cards = Card.get_cards(query)
+    cards = Card.query(expression)
     return jsonify(cards)
 
 @app.route('/', defaults={'path': ''})

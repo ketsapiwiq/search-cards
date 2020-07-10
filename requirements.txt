@@ -1,8 +1,10 @@
-elasticsearch
-elasticsearch-dsl
+# elasticsearch
+# elasticsearch-dsl
 Flask
 requests
-click
+flask_sqlalchemy
+flask_migrate
+# click
 
 # certifi==2018.11.29
 # chardet==3.0.4
