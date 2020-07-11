@@ -4,6 +4,10 @@ Flask
 requests
 flask_sqlalchemy
 flask_migrate
+flask_cors
+
+python-dotenv
+
 # click
 
 # certifi==2018.11.29

@@ -10,8 +10,9 @@
     <div class="card-columns">
       <div class="card" v-for="card in cards" v-bind:key="card">
         <div class="card-body">
-          <h5 class="card-title">{{ card.title }}</h5>
-          <p class="card-text">{{ card.text }}</p>
+          <h5 class="card-title">{{ card.data.title }}</h5>
+          <!-- id: {{ card.id }} -->
+          <p class="card-text">{{ card.data.text }}</p>
         </div>
       </div>
     </div>
@@ -37,7 +38,8 @@ export default {
       var request = path + this.searchQuery
       axios.get(request)
       .then(response => {
-        this.cards = response.data.cards
+        // this.cards = response.data.cards
+        this.cards = response.data
       })
       .catch(error => {
         console.log(error)
