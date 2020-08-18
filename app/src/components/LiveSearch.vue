@@ -9,7 +9,7 @@
     </div>
     <div class="card-columns">
       <div v-for="card in cards" v-bind:key="card">
-        <Card  v-bind:data='card.data' />
+        <Card v-bind:data='card.data' />
       </div>
     </div>
   </div>
@@ -19,9 +19,6 @@
 import axios from 'axios'
 
 import Card from './Card.vue'
-// Vue.filter('htmlEscape', function(value) {
-//   return value.replace(/\&amp\;/g, '&');
-// });
 
 export default {
   components: {
