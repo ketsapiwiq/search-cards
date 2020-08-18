@@ -1,20 +1,19 @@
 <template>
-      <div class="card" v-bind:key="card">
+      <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ card.data.title }}</h5>
+          <h5 class="card-title">{{ data.title }}</h5>
           <!-- id: {{ card.id }} -->
-          <p class="card-text">{{ card.data.text }}</p>
-          <pre class="card-data">{{ card.data }}</pre>
+          <p class="card-text">{{ data.text }}</p>
+          <pre class="card-data">{{ data }}</pre>
         </div>
       </div>
 </template>
 
 <script>
 export default {
-  props: ['card'],
+  props: ['data'],
   data () {
     return {
-    //   card: ''
     }
   }
 }

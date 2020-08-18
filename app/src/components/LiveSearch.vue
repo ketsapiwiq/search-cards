@@ -8,8 +8,8 @@
         </form>
     </div>
     <div class="card-columns">
-      <div v-for="card in cards" v-bind:key="card" card="card">
-        <Card card="card" />
+      <div v-for="card in cards" v-bind:key="card">
+        <Card  v-bind:data='card.data' />
       </div>
     </div>
   </div>
