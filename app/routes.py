@@ -14,7 +14,6 @@ def random_number():
 
 @app.route('/api/cards/<string:expression>', methods=['GET'])
 def cards(expression):
-    # response = { 'cards': [{'title':'Titre 1', 'text':'Texte 1'},{'title':'Titre 2', 'text':'Texte 2'}] }
     cards = Card.query_from_string(expression)
     return jsonify(cards)
 
