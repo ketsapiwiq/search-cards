@@ -8,12 +8,8 @@
         </form>
     </div>
     <div class="card-columns">
-      <div class="card" v-for="card in cards" v-bind:key="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ card.data.title }}</h5>
-          <!-- id: {{ card.id }} -->
-          <p class="card-text">{{ card.data.text }}</p>
-        </div>
+      <div v-for="card in cards" v-bind:key="card" card="card">
+        <Card card="card" />
       </div>
     </div>
   </div>
@@ -21,11 +17,16 @@
 
 <script>
 import axios from 'axios'
+
+import Card from './Card.vue'
 // Vue.filter('htmlEscape', function(value) {
 //   return value.replace(/\&amp\;/g, '&');
 // });
 
 export default {
+  components: {
+    Card
+  },
   data () {
     return {
       cards: null,
@@ -37,13 +38,13 @@ export default {
       const path = `http://localhost:5000/api/cards/`
       var request = path + this.searchQuery
       axios.get(request)
-      .then(response => {
-        // this.cards = response.data.cards
-        this.cards = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          // this.cards = response.data.cards
+          this.cards = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   created () {

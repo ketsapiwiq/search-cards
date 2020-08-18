@@ -1,2 +1,3 @@
 * is the object given to front-end an {id: x,data: y } ? This is useless
 * https://stackoverflow.com/questions/5022066/how-to-serialize-sqlalchemy-result-to-json
+* faire que clic sur cards : edit le json, puis Entrée ou clic ailleurs : submit
