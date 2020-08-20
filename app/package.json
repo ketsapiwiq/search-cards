@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
+    "flask": "flask run",
+    "start": "flask run & node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },

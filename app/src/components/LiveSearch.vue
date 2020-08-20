@@ -9,7 +9,7 @@
     </div>
     <div class="card-columns">
       <div v-for="card in cards" v-bind:key="card">
-        <Card v-bind:data='card.data' />
+        <Card v-bind:card='card' />
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getCards () {
-      const path = `http://localhost:5000/api/cards/`
+      const path = `http://localhost:5000/api/cards/search/`
       var request = path + this.searchQuery
       axios.get(request)
         .then(response => {
