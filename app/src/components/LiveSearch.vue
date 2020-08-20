@@ -12,6 +12,7 @@
         <Card v-bind:card='card' />
       </div>
     </div>
+    <div class="button"><a href="#">Add a card</a></div>
   </div>
 </template>
 
