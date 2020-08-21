@@ -15,6 +15,7 @@ app = Flask(__name__, static_folder="./dist/static", template_folder="./dist")
 app.config.from_object(Config)
 
 CORS(app, resources={r'/*': {'origins': '*'}})
+# CORS()
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

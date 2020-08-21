@@ -7,12 +7,17 @@
       <input class="form-control" type="text" v-model="searchQuery" placeholder="Type here" @keyup="getCards">
         </form>
     </div>
+    <div class="add-card">
+      <a class="btn btn-primary" href="#" v-on:click="isAdding = !isAdding">Add a card</a>
+    </div>
+
+    <Card isAdding=true v-if="isAdding" />
+
     <div class="card-columns">
-      <div v-for="card in cards" v-bind:key="card">
+      <div v-for="card in cards" v-bind:key="card.id">
         <Card v-bind:card='card' />
       </div>
     </div>
-    <div class="button"><a href="#">Add a card</a></div>
   </div>
 </template>
 
@@ -28,7 +33,8 @@ export default {
   data () {
     return {
       cards: null,
-      searchQuery: ''
+      searchQuery: '',
+      isAdding: false
     }
   },
   methods: {
