@@ -5,7 +5,7 @@
       <form>
         <input type="hidden" name="card_id" :value=this.card.id v-if="this.card !== undefined" />
         <table class="card-inputs">
-          <tr 
+          <tr v-model="card_form[index]">
       v-bind:key="index" v-for="(value, key, index) in card.data" v-if="this.card !== undefined">
         <td><input type="text" :value="key" /></td>
         <td><input type="text" :value="value" /></td>
@@ -88,15 +88,15 @@ export default {
     // this.jsonString = JSON.stringify(this.card.data)
   },
   watch: {
-    jsonString: function (newValue) {
-      try {
-        let newCardData = JSON.parse(newValue)
-        this.card.data = newCardData
-      } catch (err) {
-        console.log('seems to be invalid json: ' + err)
-        // reset:
-        this.jsonString = JSON.stringify(this.card.data)
-      }
+    // jsonString: function (newValue) {
+    //   try {
+    //     let newCardData = JSON.parse(newValue)
+    //     this.card.data = newCardData
+    //   } catch (err) {
+    //     console.log('seems to be invalid json: ' + err)
+    //     // reset:
+    //     this.jsonString = JSON.stringify(this.card.data)
+    //   }
     }
   }
   // directives: {
