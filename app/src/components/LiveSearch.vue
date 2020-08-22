@@ -11,7 +11,7 @@
       <a class="btn btn-primary" href="#" v-on:click="isAdding = !isAdding">Add a card</a>
     </div>
 
-    <Card isAdding=true v-if="isAdding" />
+    <Card isAdding v-if="isAdding" />
 
     <div class="card-columns">
       <div v-for="card in cards" v-bind:key="card.id">
