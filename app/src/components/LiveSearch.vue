@@ -15,7 +15,7 @@
 
     <div class="card-columns">
       <div v-for="card in cards" v-bind:key="card.id">
-        <Card v-bind:card='card' />
+        <Card v-bind:data='card.data' v-bind:id='card.id' />
       </div>
     </div>
   </div>

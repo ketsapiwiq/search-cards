@@ -8,8 +8,8 @@
         :value="this.id" v-if="this.id" != undefined
          />
         <table class="card-inputs">
-          <tr v-model="card.data"
-            v-bind:key="index" v-for="(value, key, index) in card.data" >
+          <tr v-model="data"
+            v-bind:key="index" v-for="(value, key, index) in data" >
         <td><input v-on:keyup.enter="setCard" @blur="setCard" type="text" :value="key" /></td>
         <td><input type="text" :value="value" /></td>
         <td><button @click="deleteRow(index)">Delete</button></td>
@@ -21,13 +21,13 @@
       </form>
     </div>
       <table v-else @click="edit = true;" class="display-card table-sm table-striped">
-        <tr v-for="(value, key) in card.data">
+        <tr v-for="(value, key) in data">
           <td>
             <i>{{ key }}</i>
           </td>
           <td>{{ value }}</td>
         </tr>
-        <!-- <tr><pre class="card-data">{{ card.data }}</pre></tr> -->
+        <tr><pre class="card-data">{{ data }}</pre></tr>
       </table>
     </div>
   </div>
@@ -48,6 +48,11 @@ export default {
   data () {
     return {
       // isAdding: false,
+      data: {
+        type: Object,
+        default: function () { return {'': ''} }
+
+      },
       // card: {'data': {'title': ''}},
       edit: false,
       index: 0
