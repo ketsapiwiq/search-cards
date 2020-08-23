@@ -7,28 +7,31 @@
         <input type="hidden" name="card_id" 
         :value="this.id" v-if="this.id" != undefined
          />
-        <table class="card-inputs">
-          <tr v-model="data"
-            v-bind:key="index" v-for="(value, key, index) in data" >
-        <td><input v-on:keyup.enter="setCard" @blur="setCard" type="text" :value="key" /></td>
-        <td><input type="text" :value="value" /></td>
-        <td><button @click="deleteRow(index)">Delete</button></td>
+        <table class="table card-inputs card" >
+          <tr v-model="kvstore"
+            v-bind:key="index" v-for="(keyvalue, index) in kvstore" >
+        <td><input v-on:keyup.enter="setCard" @blur="setCard" type="text" :value="keyvalue.cardkey" /></td>
+        <td><input type="text" :value="keyvalue.cardvalue" /></td>
+        <td><a @click="deleteRow(index)" class="btn btn-warning" >Delete</a></td>
         </tr>
-        <button class="btn-info" @click="addRow">Add</button>
-        <button class="btn-info" @click="setCard">Validate</button>
-
+        <p><a class="btn btn-info" @click="addRow">Add</a></p>
+        <p>
+        <a class="btn btn-success" @click="setCard">Validate</a>
+        <a class="btn btn-danger" @click="delCard" >Delete card</a>
+        <!-- <a class="btn btn-danger" @click="delCard" @@@@confirm@@@@ >Delete card</a> -->
+</p>
         </table>
       </form>
     </div>
-      <table v-else @click="edit = true;" class="display-card table-sm table-striped">
-        <tr v-for="(value, key) in data">
+      <table v-else @click="edit = true;" class="card display-card table table-sm table-striped">
+        <tr v-for="(cardvalue, cardkey) in kvstore">
           <td>
-            <i>{{ key }}</i>
+            <i>{{ cardkey }}</i>
           </td>
-          <td>{{ value }}</td>
+          <td>{{ cardvalue }}</td>
         </tr>
-        <tr><pre class="card-data">{{ data }}</pre></tr>
       </table>
+        <p class="card"><pre class="card-kvstore">{{ kvstore }}</pre></p>
     </div>
   </div>
 </template>
@@ -38,52 +41,80 @@ import axios from 'axios'
 
 export default {
   props: {
-    data: {
-      type: Object,
-      default: function () { return {'': ''} }
+    kvstore: {
+      type: Array,
+      // type: Object,
+      default: function () { return [{'name': ''}] }
 
+    },
+    keyvalue: {
+      type: Object,
+      default: function () { return {'cardkey': '', 'cardvalue': ''} }
     },
     isAdding: Boolean
   },
   data () {
     return {
       // isAdding: false,
-      data: {
-        type: Object,
-        default: function () { return {'': ''} }
+      // kvstore: {
+      //   type: Array,
+      //   default: function () { return {'': ''} }
 
-      },
-      // card: {'data': {'title': ''}},
+      // },
+      id: '',
+      // card: {'kvstore': {'title': ''}},
       edit: false,
       index: 0
     }
   },
 
   methods: {
+    getCard () {
+      const path = `http://localhost:5000/api/cards/`
+      var request
+      if (this.isAdding !== 'true') {
+        request = path + this.id
+      }
+      axios.get(request)
+
+        .then(response => {
+          this.id = response.data.id
+          this.kvstore = response.data.kvstore
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+
     setCard () {
       const path = `http://localhost:5000/api/cards/`
       var request = path
-      if (!this.isAdding) {
+      // if (this.isAdding !== true) {
+      if (this.isAdding !== 'true') {
         request = path + this.id
       }
       axios
-        .post(request, this.data)
+        .post(request, this.kvstore)
         .then(response => {
           if (this.isAdding) { this.isAdding = !(response.status === 200) }
         })
         .catch((error) => {
           console.log(error)
         })
+
+      // this.edit = false
     },
+    delCard () {},
     addRow () {
-      this.data.push({'': ''})
+      this.kvstore.push('hello')
     },
     deleteRow (index) {
-      this.data.splice(index, 1)
+      this.kvstore.splice(index, 1)
     }
   },
   updated () {
     this.setCard()
+    this.getCard()
   }
   // computed: {
   //   keyname: function (key) {
@@ -100,16 +131,15 @@ export default {
   //   // this.jsonString = JSON.stringify(this.card.data)
   // },
   // watch: {
-  // jsonString: function (newValue) {
-  //   try {
-  //     let newCardData = JSON.parse(newValue)
-  //     this.card.data = newCardData
-  //   } catch (err) {
-  //     console.log('seems to be invalid json: ' + err)
-  //     // reset:
-  //     this.jsonString = JSON.stringify(this.card.data)
+  //   data: function (newValue) {
+  //     try {
+  //       this.data = newValue
+  //     } catch (err) {
+  //       console.log('seems to be invalid: ' + err)
+  //       // reset:
+  //       // this.jsonString = JSON.stringify(this.card.data)
+  //     }
   //   }
-  // }
   // }
   // directives: {
   //  focus: {

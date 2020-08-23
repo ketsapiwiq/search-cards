@@ -22,16 +22,26 @@ def card(card_id):
         # return jsonify(card)
 
     elif request.method == "POST":
+        request_data = request.form
         if(card_id)=='':
-            # No sanitization
-            card = Card(request.form)
+            create = True
+
+        # /!\ No sanitization, should slug the keys and bleach the value/content
+        data = request.form
+
+        if not data and create:
+            return '', 204 # No operation
+        if create:
+        # /!\ Or sanitization in the function
+            card = Card(data)
         else:
+            if not data:
+                Card.delete(card_id)
+                return json.dumps({'success':True, 'deleted':True, 'id':card.id}), 200, {'ContentType':'application/json'} 
             card = Card.query.get(card_id)
-        # No sanitization
-            data = request.form
             card.json_data = json.dumps(request.form)
         card.save()
-        return json.dumps({'success':True, 'id':card.id}), 200, {'ContentType':'application/json'} 
+        return json.dumps({'success':True, 'created':create}), 200, {'ContentType':'application/json'} 
 
 
 @app.route("/<path:path>")
